@@ -1,14 +1,16 @@
+
 #ifndef GAMEBOARD_H
 #define GAMEBOARD_H
 
 
 class GameBoard
 {
-	int gbWidith, gbHeight;
 public:
-
-	void gbSetSize(int, int);
+	int gbWidith;
+	int	gbHeight;
 	void gbPrint(int, int);
+	void gbSetSize(int, int);
+	
 };
 
 #endif // !1
