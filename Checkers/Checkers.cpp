@@ -7,11 +7,13 @@
 using namespace std;
 int main()
 {
-    GameBoard game;
-    int inputHeight = 8,inputWidith = 8;
-    game.gbSetSize(inputWidith, inputHeight);
-    cout << "Widith of Board: " <<inputWidith <<"\n";
-    cout << "Height of Board: " << inputHeight << "\n";  //Set up the size of the board
-    game.gbPrint(game.gbWidith,game.gbHeight);
+    int boardHeight = 8, boardWidith = 8;
+    GameBoard game(8,8);
+    game.gbPrint();
+    game.intialPiecePlacement();
+    cout << "\n";
+    game.gbPrint();
+    
+                                                   //Initial Setup for the Board
     return 0;
 }
