@@ -32,6 +32,10 @@ void Piece::render() {
 		cout << "[_] ";
 
 }
+
+bool Piece::validMove(int currentPositionX, int currentPositionY, int newPositionX, int newPositionY) {
+	return true;
+}
 /*
 //Team White Construction
  TeamWhite::TeamWhite() {

@@ -19,16 +19,25 @@ GameBoard::GameBoard(int x, int y) {
 	}
 	 void GameBoard::gbPrint() {  //Print Current Game Board
 		 cout << " ";
+		 char gbDisplayLetters = 64;
 		for (int i = 0; i < gbHeight; i++)
 		{
+			gbDisplayLetters++;
+			cout << gbDisplayLetters << "  ";  //Print Siding Letters
 			for (int j = 0; j < gbWidith; j++)
 			{
-					pieceLocationData[i][j].render();
+					pieceLocationData[i][j].render();   //Render Each game square with a Piece or Empty
 			}
 			cout << "\n ";
 		}
+		cout << "\n    ";
+		for (int k = 1; k < 9; k++)
+		{
+			cout <<" " << k << "  ";    //Attach Column numbering to the bottom of board
+		}
+		cout << "\n";
 	}
-	 void GameBoard::fillWithEmpty(int x, int y) {
+	 void GameBoard::fillWithEmpty(int x, int y) { //Generate Empty Board with no piece positions
 		 for (int i = 0; i < y; i++) {
 			 for (int j = 0; j < x; j++){
 				 pieceLocationData[i][j] = Piece();
@@ -38,7 +47,7 @@ GameBoard::GameBoard(int x, int y) {
 
 		 }
 	 }
-	 void GameBoard::intialPiecePlacement() {	
+	 void GameBoard::intialPiecePlacement() {	//Generate starting piece position for standard game
 			 for (int i = 0; i < gbHeight/2 -1; i++)
 			 {
 				 for (int j =(gbHeight-i) % 2; j < gbWidith;j += 2 )

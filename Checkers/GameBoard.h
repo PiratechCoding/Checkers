@@ -14,6 +14,8 @@ public:
 	void gbSetSize(int, int);
 	void fillWithEmpty(int, int);
 	void intialPiecePlacement();
+	void gbPieceMove(int, int, int, int);
+
 	GameBoard(int, int);
 };
 
