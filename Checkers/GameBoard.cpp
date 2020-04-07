@@ -23,11 +23,7 @@ GameBoard::GameBoard(int x, int y) {
 		{
 			for (int j = 0; j < gbWidith; j++)
 			{
-				if (pieceLocationData[i][j].isEmpty != 0) {
 					pieceLocationData[i][j].render();
-				}
-				else
-					cout << "[ ] ";
 			}
 			cout << "\n ";
 		}
@@ -35,7 +31,7 @@ GameBoard::GameBoard(int x, int y) {
 	 void GameBoard::fillWithEmpty(int x, int y) {
 		 for (int i = 0; i < y; i++) {
 			 for (int j = 0; j < x; j++){
-				 pieceLocationData[i][j].isEmpty = 1;
+				 pieceLocationData[i][j] = Piece();
 			 }
 		 }
 		 {
@@ -43,17 +39,18 @@ GameBoard::GameBoard(int x, int y) {
 		 }
 	 }
 	 void GameBoard::intialPiecePlacement() {	
-			 for (int i = 0; i < gbHeight/2; i++)
+			 for (int i = 0; i < gbHeight/2 -1; i++)
 			 {
-				 for (int j = 1; j < gbWidith;j += 2 )
+				 for (int j =(gbHeight-i) % 2; j < gbWidith;j += 2 )
 				 {
-					 pieceLocationData[i][j] = TeamWhite();
+					 pieceLocationData[i][j].isWhite = true;
 				 }
+
 			 }
-			 for (int i = gbHeight - 1; i > gbHeight/2 ; i--) {
-				 for (int j = gbWidith; j > 0;j -= 2)
+			 for (int i = gbHeight - 1; i >= gbHeight/2 + 1; i--) {
+				 for (int j = (gbHeight -i) % 2; j < gbWidith; j += 2)
 				 {
-					 pieceLocationData[i][j] = TeamBlack();
+					 pieceLocationData[i][j].isBlack = true;
 				 }
 			 }
 	 }
