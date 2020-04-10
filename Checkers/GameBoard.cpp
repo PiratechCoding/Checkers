@@ -15,16 +15,7 @@ GameBoard::GameBoard(int x, int y){
  int gbHeight;
  Piece pieceLocationData[8][8];				//Please Refactor me to One Dimensional Array
 
- void GameBoard::turnReadOut() {
-	 if (teamTurn == 0) {
-		 cout << "\nBlack's Turn";
-	 }
-	 else if(teamTurn == 1)
-		 cout << "\nWhite's Turn";
-	 else {
-		 cout << "\nError";
-	 }
- }
+ 
  bool GameBoard::isValidSelection(int indexSelectionX, int indexSelectionY) {
 	 if (indexSelectionX >= gbWidith || indexSelectionY >= gbHeight)
 		 return false;
@@ -37,7 +28,6 @@ GameBoard::GameBoard(int x, int y){
 	 return true;
  }
  void GameBoard::gbPieceMove(int selectPieceX, int selectPieceY, int newPositionX, int newPositionY) {
-	 
 	 selectPieceX = selectPieceX - 1;
 	 newPositionX = newPositionX - 1;
 	 selectPieceY = selectPieceY - LETTEROFFSET;
@@ -78,7 +68,7 @@ GameBoard::GameBoard(int x, int y){
 			cout << "\n ";
 		}
 		cout << "\n    ";
-		for (int k = 1; k < 9; k++)
+		for (int k = 1; k <= gbWidith; k++)
 		{
 			cout <<" " << k << "  ";							//Attach Column numbering to the bottom of board
 		}
@@ -124,4 +114,14 @@ GameBoard::GameBoard(int x, int y){
 			 teamTurn = 0;
 		 else if (teamTurn == 0)
 			 teamTurn = 1;
+	 }
+	 void GameBoard::turnReadOut() {
+		 if (teamTurn == 0) {
+			 cout << "\nBlack's Turn";
+		 }
+		 else if (teamTurn == 1)
+			 cout << "\nWhite's Turn";
+		 else {
+			 cout << "\nError";
+		 }
 	 }
