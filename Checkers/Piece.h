@@ -2,30 +2,22 @@
 #define PIECE_H
 class Piece
 {
-public:
-	bool validMove(int currentPositionX, int currentPositionY, int movePositionX, int movePositionY);
-	void render();
-	Piece();
+protected:
 	bool isEmpty;
-	bool isWhite;
-	bool isBlack;
-	bool kingFlag;
+	int team;
+	bool isKing;
+	int gameWidith, gameHeight;
+public:
+	bool validMove(int currentPositionX, int currentPositionY, int movePositionX, int movePositionY, int teamTurn);
+	void render();
+	void setTeamBlack();
+	void setTeamWhite();
+	void setKingStatus(bool kingStatus);
+	void clearTeams();
+	void setEmpty(bool emptyStatus);
+	int getTeam();
+	Piece(int* gameWidith, int* gameHeight);
+	Piece() = default;
 };
 
-/*
-class TeamWhite :public Piece
-{
-public:
-	bool kingFlag;
-	bool isWhite;
-	TeamWhite();
-};
-
-class TeamBlack : public Piece
-{
-public:
-	bool kingFlag;
-	bool isBlack;
-	TeamBlack();
-};*/
 #endif

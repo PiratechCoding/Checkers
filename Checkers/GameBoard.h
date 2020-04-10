@@ -5,18 +5,22 @@
 
 class GameBoard
 {
-	 int gbWidith;
-	 int gbHeight;
-	
-public:
+protected:
+	int gbWidith;
+	int gbHeight;
 	Piece pieceLocationData[8][8];
-	void gbPrint();
-	void gbSetSize(int, int);
-	void fillWithEmpty(int, int);
+public:
+	void gbRender();
+	void fillWithEmpty();
 	void intialPiecePlacement();
+	void gbStart();
 	void gbPieceMove(int, int, int, int);
-
+	void turnReadOut();
 	GameBoard(int, int);
+private:
+	bool isValidSelection(int indexSelectionX, int indexSelectionY);
+	int LETTEROFFSET;
+	int teamTurn;
 };
 
 #endif // !1

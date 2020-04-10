@@ -8,15 +8,19 @@ using namespace std;
 int main()
 {
     int boardHeight = 8, boardWidith = 8;
-    GameBoard game(boardWidith,boardHeight);
-    game.gbPrint();
-    game.intialPiecePlacement();
-    cout << "\n";
-    game.gbPrint();
-    
-                                                   //Initial Setup for the Board
+    char rowSelect = 0, rowMove = 0;          //User Input Decleration
+    int columnSelect = 0, columnMove = 0;
+    GameBoard game(boardWidith,boardHeight);  //Initial Setup for the Board
     cout << "\nWould you like to play a game: (Y/N)\n";
-
+    bool gameFlag = true;
+    while (gameFlag == true) {
+        game.gbRender();
+        cout << "\nSelect Piece:";
+        cin >> rowSelect >> columnSelect;
+        cout << "Move Piece:";
+        cin >> rowMove >> columnMove;
+        game.gbPieceMove(rowSelect, columnSelect,rowMove, columnMove);
+    }
 
     return 0;
 }
