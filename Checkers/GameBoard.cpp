@@ -3,8 +3,7 @@
 #include <iostream>
 using namespace std;
 
-GameBoard::GameBoard(int x, int y){
-	teamTurn = 0;
+GameBoard::GameBoard(int x, int y){	
 	gbWidith = x;
 	gbHeight = y;
 	LETTEROFFSET = 65;
@@ -17,10 +16,10 @@ GameBoard::GameBoard(int x, int y){
  Piece pieceLocationData[8][8];				//Please Refactor me to One Dimensional Array
 
  void GameBoard::turnReadOut() {
-	 if (!teamTurn) {
+	 if (teamTurn == 0) {
 		 cout << "\nBlack's Turn";
 	 }
-	 else if(teamTurn)
+	 else if(teamTurn == 1)
 		 cout << "\nWhite's Turn";
 	 else {
 		 cout << "\nError";
@@ -118,10 +117,11 @@ GameBoard::GameBoard(int x, int y){
 	 void  GameBoard::gbStart() {						 //Gameboard Object Init
 		fillWithEmpty();
 		intialPiecePlacement();
+		teamTurn = 0;
 	 }
 	 void GameBoard::setTeamTurn() {
-		 if (teamTurn)
-			 teamTurn--;
-		 if (!teamTurn)
-			 teamTurn++;
+		 if (teamTurn == 1)
+			 teamTurn = 0;
+		 else if (teamTurn == 0)
+			 teamTurn = 1;
 	 }
