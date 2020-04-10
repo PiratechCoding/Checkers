@@ -19,8 +19,7 @@ int main()
         cin >> rowSelect >> columnSelect;
         cout << "Move Piece:";
         cin >> rowMove >> columnMove;
-        game.gbPieceMove(rowSelect, columnSelect,rowMove, columnMove);
+        game.gbPieceMove(columnSelect, rowSelect, columnMove, rowMove);
     }
-
     return 0;
 }

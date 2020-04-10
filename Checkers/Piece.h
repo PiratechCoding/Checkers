@@ -2,6 +2,9 @@
 #define PIECE_H
 class Piece
 {
+private:
+	bool isDiagMove(int currentPositionX, int currentPositionY, int newPositionX, int newPositionY);
+	bool isCorrectDirection(int currentPositionY, int newPositionY, int teamTurn);
 protected:
 	bool isEmpty;
 	int team;
@@ -16,8 +19,9 @@ public:
 	void clearTeams();
 	void setEmpty(bool emptyStatus);
 	int getTeam();
+	bool getEmptyStatus();
 	Piece(int* gameWidith, int* gameHeight);
-	Piece() = default;
+	Piece() = default; //default const to fall back on
 };
 
 #endif

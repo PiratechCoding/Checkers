@@ -8,7 +8,7 @@ class GameBoard
 protected:
 	int gbWidith;
 	int gbHeight;
-	Piece pieceLocationData[8][8];
+	Piece pieceLocation[8][8];
 public:
 	void gbRender();
 	void fillWithEmpty();
@@ -18,6 +18,7 @@ public:
 	void turnReadOut();
 	GameBoard(int, int);
 private:
+	void setTeamTurn();
 	bool isValidSelection(int indexSelectionX, int indexSelectionY);
 	int LETTEROFFSET;
 	int teamTurn;
