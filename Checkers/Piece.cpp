@@ -21,11 +21,15 @@ bool Piece::getEmptyStatus() {
 void Piece::setKingStatus(bool kingStatus) {
 	this->isKing = kingStatus;
 }
-
+bool Piece::getKingStatus() {
+	return this->isKing;
+}
 void Piece::setTeamBlack() {
+	this->isEmpty = false;
 	this->team = 0;
 }
 void Piece::setTeamWhite() {		
+	this->isEmpty = false;
 	this->team = 1;
 }
 void Piece::clearTeams() {  

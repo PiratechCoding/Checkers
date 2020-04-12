@@ -6,6 +6,8 @@
 class GameBoard
 {
 protected:
+	char rowSelect, rowMove;          
+	int columnSelect, columnMove;
 	int gbWidith;
 	int gbHeight;
 	Piece pieceLocation[8][8];
@@ -18,7 +20,10 @@ public:
 	void turnReadOut();
 	GameBoard(int, int);
 private:
+	void gbUserInputAfterCapture();
+	void gbBoardUpdate(int selectPieceX, int selectPieceY, int newPositionX, int newPositionY);
 	void setTeamTurn();
+	bool isCaptureble(int, int,int,int);
 	bool isValidSelection(int indexSelectionX, int indexSelectionY);
 	int LETTEROFFSET;
 	int teamTurn;

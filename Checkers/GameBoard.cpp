@@ -4,6 +4,8 @@
 using namespace std;
 
 GameBoard::GameBoard(int x, int y){	
+	char rowSelect = 0, rowMove = 0;          //User Input Decleration
+	int columnSelect = 0, columnMove = 0;
 	gbWidith = x;
 	gbHeight = y;
 	LETTEROFFSET = 65;
@@ -27,6 +29,45 @@ GameBoard::GameBoard(int x, int y){
 	 //Ensure Selection is correct team and not Empty
 	 return true;
  }
+ void GameBoard::gbBoardUpdate(int selectPieceX, int selectPieceY, int newPositionX, int newPositionY) {
+	 if (teamTurn == 0) {												//Black Turn
+		 pieceLocation[selectPieceY][selectPieceX].clearTeams();
+		 pieceLocation[newPositionY][newPositionX].setTeamBlack();
+		 setTeamTurn();
+	 }
+	 else if (teamTurn == 1) {											// White Turn
+		 pieceLocation[selectPieceY][selectPieceX].clearTeams();
+		 pieceLocation[newPositionY][newPositionX].setTeamWhite();
+		 setTeamTurn();
+	 }
+ }
+ bool GameBoard::isCaptureble(int selectPieceX, int selectPieceY, int newPositionX, int newPositionY) {
+	 if (pieceLocationData[newPositionY][newPositionX].getEmptyStatus() == false) {
+		 if (pieceLocationData[selectPieceY][selectPieceX].getKingStatus()) {
+			 if (pieceLocationData[newPositionY + 1][newPositionX- 1].getEmptyStatus() == true || pieceLocationData[newPositionY+ 1][newPositionX+ 1].getEmptyStatus() == true || pieceLocationData[newPositionY- 1][newPositionX+ 1].getEmptyStatus() ==true || pieceLocationData[newPositionY- 1][newPositionX - 1].getEmptyStatus() == true)
+				 return true;
+		 }
+		 else if (pieceLocationData[selectPieceY][selectPieceX].getTeam() == 1) {
+			 if (pieceLocationData[newPositionY + 1][newPositionX - 1].getEmptyStatus() == true || pieceLocationData[newPositionY+ 1][newPositionX+ 1].getEmptyStatus() == true)
+				 return true;
+		 }
+		 else if (pieceLocationData[selectPieceY][selectPieceX].getTeam() == 0) {
+			 if (pieceLocationData[newPositionY - 1][newPositionX- 1].getEmptyStatus() == true|| pieceLocationData[newPositionY- 1][newPositionX+ 1].getEmptyStatus() == true)
+				 return true;
+		 }
+		 else {
+			 cout << "Piece not Capturable";
+			 return false;
+		 }
+	 }
+	 else 
+		return false;
+ }
+
+ void GameBoard::gbUserInputAfterCapture() {
+	 cout << "Move Piece Again:";
+	 cin >> rowMove >> columnMove;
+ }
  void GameBoard::gbPieceMove(int selectPieceX, int selectPieceY, int newPositionX, int newPositionY) {
 	 selectPieceX = selectPieceX - 1;
 	 newPositionX = newPositionX - 1;
@@ -34,19 +75,15 @@ GameBoard::GameBoard(int x, int y){
 	 newPositionY = newPositionY - LETTEROFFSET;
 	 //User input Adjust
 	 if (isValidSelection(selectPieceX, selectPieceY)) {
-		 if (pieceLocation[selectPieceY][selectPieceX].validMove(selectPieceX, selectPieceY, newPositionX, newPositionY, teamTurn)) {
+		 if (isCaptureble(selectPieceX, selectPieceY, newPositionX, newPositionY) && pieceLocationData[selectPieceY][selectPieceX].validMove(selectPieceX, selectPieceY, newPositionX, newPositionY, teamTurn)) {
+			 gbUserInputAfterCapture();
+			 gbPieceMove(newPositionX,newPositionY,rowMove,columnMove);
+			 gbBoardUpdate(selectPieceX, selectPieceY, newPositionX, newPositionY);
+		 }
+		 else if (pieceLocation[selectPieceY][selectPieceX].validMove(selectPieceX, selectPieceY, newPositionX, newPositionY, teamTurn)) {
 			 pieceLocation[selectPieceY][selectPieceX].setEmpty(true);			//Empty current grid when valid
 			 pieceLocation[newPositionY][newPositionX].setEmpty(false);			//Fill new current grid
-			 if (teamTurn == 0) {												//Black Turn
-				 pieceLocation[selectPieceY][selectPieceX].clearTeams();
-				 pieceLocation[newPositionY][newPositionX].setTeamBlack();
-				 setTeamTurn();
-			 }
-			 else if (teamTurn == 1) {											// White Turn
-				 pieceLocation[selectPieceY][selectPieceX].clearTeams();
-				 pieceLocation[newPositionY][newPositionX].setTeamWhite();
-				 setTeamTurn();
-			 }
+			 gbBoardUpdate(selectPieceX, selectPieceY, newPositionX, newPositionY);
 		 }
 		 else 
 			 cout << "Invalid Move Please Redo\n";

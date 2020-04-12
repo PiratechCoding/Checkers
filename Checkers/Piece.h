@@ -15,11 +15,12 @@ public:
 	void render();
 	void setTeamBlack();
 	void setTeamWhite();
+	bool getKingStatus();
 	void setKingStatus(bool kingStatus);
 	void clearTeams();
+	bool getEmptyStatus();
 	void setEmpty(bool emptyStatus);
 	int getTeam();
-	bool getEmptyStatus();
 	Piece(int* gameWidith, int* gameHeight);
 	Piece() = default; //default const to fall back on
 };
