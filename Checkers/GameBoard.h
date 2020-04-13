@@ -21,7 +21,7 @@ public:
 	GameBoard(int, int);
 private:
 	void gbUserInputAfterCapture();
-	void gbBoardUpdate(int selectPieceX, int selectPieceY, int newPositionX, int newPositionY);
+	void gbBoardUpdate(int selectPieceX, int selectPieceY, int newPositionX, int newPositionY, bool captureFlag);
 	void setTeamTurn();
 	bool isCaptureble(int, int,int,int);
 	bool isValidSelection(int indexSelectionX, int indexSelectionY);

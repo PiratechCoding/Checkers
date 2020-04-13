@@ -6,11 +6,12 @@ private:
 	bool isDiagMove(int currentPositionX, int currentPositionY, int newPositionX, int newPositionY);
 	bool isCorrectDirection(int currentPositionY, int newPositionY, int teamTurn);
 protected:
-	bool isEmpty;
+	
 	int team;
 	bool isKing;
 	int gameWidith, gameHeight;
 public:
+	bool isEmpty;
 	bool validMove(int currentPositionX, int currentPositionY, int movePositionX, int movePositionY, int teamTurn);
 	void render();
 	void setTeamBlack();
