@@ -7,7 +7,7 @@ using namespace std;
 
 Piece::Piece(int* gameBoardWidith,int* gameBoardHeight){
 	setEmpty(true);
-	clearTeams();
+	clearPiece();
 	setKingStatus(false);
 	gameWidith = *gameBoardWidith;
 	gameHeight = *gameBoardHeight;
@@ -32,8 +32,10 @@ void Piece::setTeamWhite() {
 	this->isEmpty = false;
 	this->team = 1;
 }
-void Piece::clearTeams() {  
-	this->team = -1;			//Will throw error if evalued as expected
+void Piece::clearPiece() {  
+	this->team = -1;
+	this->setKingStatus(0);
+	this->setEmpty(1);
 }
 int Piece::getTeam() {			// 0 Black 1 White
 	return this->team;

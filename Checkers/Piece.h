@@ -10,15 +10,16 @@ protected:
 	int team;
 	bool isKing;
 	int gameWidith, gameHeight;
-public:
 	bool isEmpty;
+public:
+	
 	bool validMove(int currentPositionX, int currentPositionY, int movePositionX, int movePositionY, int teamTurn);
 	void render();
 	void setTeamBlack();
 	void setTeamWhite();
 	bool getKingStatus();
 	void setKingStatus(bool kingStatus);
-	void clearTeams();
+	void clearPiece();
 	bool getEmptyStatus();
 	void setEmpty(bool emptyStatus);
 	int getTeam();

@@ -16,7 +16,30 @@ GameBoard::GameBoard(int x, int y){
  int gbWidith;
  int gbHeight;
  Piece pieceLocation[8][8];				//Please Refactor me to One Dimensional Array
-
+ bool GameBoard::winCondition(int* teamBlackPointer, int* teamWhitePointer) {
+	 int teamWhite = 0;
+	 int teamBlack = 0;
+	 for (int i; i < gbHeight; i++) {
+		 for (int j = 0; j < gbWidith; j++) {
+			 if (pieceLocation[i][j].getTeam() == 0)
+				 teamBlack++;
+			 else if (pieceLocation[i][j].getTeam() == 1)
+				 teamWhite++;
+		 }
+	 }
+	 if (teamBlack == 0) {
+		 *teamBlackPointer = teamBlack;
+		 *teamWhitePointer = teamWhite;
+		 return true;
+	 }
+	 else if (teamWhite == 0) {
+		 teamBlackPointer = &teamBlack;
+		 teamWhitePointer = &teamWhite;
+		 return true;
+	 }
+	 else
+		 return false;
+ }
  
  bool GameBoard::isValidSelection(int indexSelectionX, int indexSelectionY) {
 	 if (indexSelectionX >= gbWidith || indexSelectionY >= gbHeight)
@@ -31,12 +54,14 @@ GameBoard::GameBoard(int x, int y){
  }
  void GameBoard::gbBoardUpdate(int selectPieceX, int selectPieceY, int newPositionX, int newPositionY,bool captureFlag) {
 	 if (teamTurn == 0) {												//Black Turn
-		 pieceLocation[selectPieceY][selectPieceX].clearTeams();
+		 pieceLocation[selectPieceY][selectPieceX].clearPiece();
 		 pieceLocation[newPositionY][newPositionX].setTeamBlack();
+		 gbPieceUpgrade(newPositionX, newPositionY);
 	 }
 	 else if (teamTurn == 1) {											// White Turn
-		 pieceLocation[selectPieceY][selectPieceX].clearTeams();
+		 pieceLocation[selectPieceY][selectPieceX].clearPiece();
 		 pieceLocation[newPositionY][newPositionX].setTeamWhite();
+		 gbPieceUpgrade(newPositionX, newPositionY);
 	 }
 	 else
 		 cout << "Error:Team is Empty";
@@ -44,20 +69,64 @@ GameBoard::GameBoard(int x, int y){
 		 setTeamTurn();
 	 }
  }
+ void GameBoard::gbPieceUpgrade(int selectPieceX, int selectPieceY) {
+	 if (pieceLocation[selectPieceX][selectPieceY].getKingStatus == false) {
+		 if (teamTurn == 0) {
+			 if (selectPieceY == gbHeight - 1)
+				 pieceLocation[selectPieceX][selectPieceY].setKingStatus(1);
+		 }
+		 if (teamTurn == 1) {
+			 if (selectPieceY == 0)
+				 pieceLocation[selectPieceX][selectPieceY].setKingStatus(1);
+		 }
+	 }
+ }
  bool GameBoard::isCaptureble(int selectPieceX, int selectPieceY, int newPositionX, int newPositionY) {
 	 int emptyStatus = pieceLocation[newPositionY][newPositionX].getEmptyStatus();
 	 if (emptyStatus == false) {
 		 if (pieceLocation[selectPieceY][selectPieceX].getKingStatus()) {
-			 if (pieceLocation[newPositionY + 1][newPositionX- 1].getEmptyStatus() == true || pieceLocation[newPositionY+ 1][newPositionX+ 1].getEmptyStatus() == true || pieceLocation[newPositionY- 1][newPositionX+ 1].getEmptyStatus() ==true || pieceLocation[newPositionY- 1][newPositionX - 1].getEmptyStatus() == true)
-				 return true;
-		 }
-		 else if (pieceLocation[selectPieceY][selectPieceX].getTeam() == 1) {
-			 if (pieceLocation[newPositionY + 1][newPositionX - 1].getEmptyStatus() == true || pieceLocation[newPositionY+ 1][newPositionX+ 1].getEmptyStatus() == true)
-				 return true;
+			 if (upperValidation(newPositionY)) {
+				 if (lowerValidation(newPositionX)) {
+					 if (pieceLocation[newPositionY + 1][newPositionX - 1].getEmptyStatus() == true && selectPieceX != newPositionX) //Check Left Square
+						 return true;
+				 }
+				 if (rightMostValidation(newPositionX))
+					 if (pieceLocation[newPositionY + 1][newPositionX + 1].getEmptyStatus() == true && selectPieceX != newPositionX) //Check Right Square
+						 return true;
+			 }
+			 if (lowerValidation(newPositionY)) {
+				 if (lowerValidation(newPositionX)) {
+					 if (pieceLocation[newPositionY - 1][newPositionX - 1].getEmptyStatus() == true && selectPieceX != newPositionX)
+						 return true;
+				 }
+				 if (rightMostValidation(newPositionX)) {
+					 if (pieceLocation[newPositionY - 1][newPositionX + 1].getEmptyStatus() == true && selectPieceX != newPositionX)
+						 return true;
+				 }
+			 }
 		 }
 		 else if (pieceLocation[selectPieceY][selectPieceX].getTeam() == 0) {
-			 if (pieceLocation[newPositionY - 1][newPositionX- 1].getEmptyStatus() == true|| pieceLocation[newPositionY- 1][newPositionX+ 1].getEmptyStatus() == true)
-				 return true;
+			 if (upperValidation(newPositionY)) {
+				 if (lowerValidation(newPositionX)) {
+					 if(pieceLocation[newPositionY + 1][newPositionX - 1].getEmptyStatus() == true && selectPieceX != newPositionX) //Check Left Square
+						 return true;
+				 }
+				 if(rightMostValidation(newPositionX))
+					 if(pieceLocation[newPositionY + 1][newPositionX + 1].getEmptyStatus() == true && selectPieceX != newPositionX) //Check Right Square
+						 return true;
+			 }
+		 }
+		 else if (pieceLocation[selectPieceY][selectPieceX].getTeam() == 1) {
+			 if (lowerValidation(newPositionY)) {
+				 if (lowerValidation(newPositionX)) {
+					 if (pieceLocation[newPositionY - 1][newPositionX - 1].getEmptyStatus() == true && selectPieceX != newPositionX)
+						 return true;
+				 }
+				 if (rightMostValidation(newPositionX)) {
+					 if (pieceLocation[newPositionY - 1][newPositionX + 1].getEmptyStatus() == true && selectPieceX != newPositionX)
+						 return true;
+				 }
+			 }
 		 }
 		 else {
 			 cout << "Piece not Capturable";
@@ -165,4 +234,19 @@ GameBoard::GameBoard(int x, int y){
 		 else {
 			 cout << "\nError";
 		 }
+	 }
+	 bool GameBoard::upperValidation(int newPosition) {
+		 if (newPosition + 1 >= gbHeight) 
+			 return false;
+		 return true;
+	 }
+	 bool GameBoard::lowerValidation(int newPostion) {
+		 if (newPostion - 1 < 0)
+			 return false;
+		 return true;
+	 }
+	 bool GameBoard::rightMostValidation(int newPosition) {
+		 if (newPosition + 1 >= gbWidith)
+			 return false;
+		 return true;
 	 }

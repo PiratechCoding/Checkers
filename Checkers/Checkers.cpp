@@ -9,6 +9,8 @@ int main()
     int boardHeight = 8, boardWidith = 8;
     char rowSelect = 0, rowMove = 0;          //User Input Decleration
     int columnSelect = 0, columnMove = 0;
+    int * teamWhite = NULL;
+    int * teamBlack = NULL;
     GameBoard game(boardWidith,boardHeight);  //Initial Setup for the Board
     cout << "\nWould you like to play a game: (Y/N)\n";
     bool gameFlag = true;
@@ -19,6 +21,12 @@ int main()
         cout << "Move Piece:";
         cin >> rowMove >> columnMove;
         game.gbPieceMove(columnSelect, rowSelect, columnMove, rowMove);
+        if (game.winCondition(teamBlack, teamWhite))
+            gameFlag = false;
     }
+    if (*teamBlack == 0)
+        cout << "White Wins!";
+    else if(*teamWhite == 0)
+        cout << "Black Wins!"
     return 0;
 }
