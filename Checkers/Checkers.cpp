@@ -12,8 +12,8 @@ int main()
     int  teamWhite;
     int  teamBlack;
     GameBoard game(boardWidith,boardHeight);  //Initial Setup for the Board
-    cout << "\nWould you like to play a game: (Y/N)\n";
     bool gameFlag = true;
+    cout << "\n\n";
     while (gameFlag == true) {
         game.gbRender();
         cout << "\nSelect Piece:";

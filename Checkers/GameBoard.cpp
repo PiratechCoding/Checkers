@@ -19,7 +19,7 @@ GameBoard::GameBoard(int x, int y){
  bool GameBoard::winCondition(int* teamBlackPointer, int* teamWhitePointer) {
 	 int teamWhite = 0;
 	 int teamBlack = 0;
-	 for (int i; i < gbHeight; i++) {
+	 for (int i = 0; i < gbHeight; i++) {
 		 for (int j = 0; j < gbWidith; j++) {
 			 if (pieceLocation[i][j].getTeam() == 0)
 				 teamBlack++;
@@ -70,7 +70,7 @@ GameBoard::GameBoard(int x, int y){
 	 }
  }
  void GameBoard::gbPieceUpgrade(int selectPieceX, int selectPieceY) {
-	 if (pieceLocation[selectPieceX][selectPieceY].getKingStatus == false) {
+	 if (pieceLocation[selectPieceX][selectPieceY].getKingStatus() == false) {
 		 if (teamTurn == 0) {
 			 if (selectPieceY == gbHeight - 1)
 				 pieceLocation[selectPieceX][selectPieceY].setKingStatus(1);
