@@ -149,7 +149,13 @@ GameBoard::GameBoard(int x, int y){
 	 //User input Adjust
 	 if (isValidSelection(selectPieceX, selectPieceY)) {
 		 if (isCaptureble(selectPieceX, selectPieceY, newPositionX, newPositionY) && pieceLocation[selectPieceY][selectPieceX].validMove(selectPieceX, selectPieceY, newPositionX, newPositionY, teamTurn)) {
-			 gbUserInputAfterCapture();
+			 do {
+				 if (teamTurn == 1)
+					 pieceLocation[newPositionX][newPositionY].setTeamWhite();
+				 else
+					 pieceLocation[newPositionX][newPositionY].setTeamBlack();
+				 gbUserInputAfterCapture();
+			 } while (!pieceLocation[newPositionX][newPositionY].validMove(newPositionX, newPositionY, columnMove + 1, rowMove - LETTEROFFSET,teamTurn));
 			 gbBoardUpdate(selectPieceX, selectPieceY, newPositionX, newPositionY,true);
 			 gbPieceMove(newPositionX + 1,(newPositionY + LETTEROFFSET),columnMove,rowMove);
 		 }
@@ -158,11 +164,11 @@ GameBoard::GameBoard(int x, int y){
 			 pieceLocation[newPositionY][newPositionX].setEmpty(false);			//Fill new current grid
 			 gbBoardUpdate(selectPieceX, selectPieceY, newPositionX, newPositionY,false);
 		 }
-		 else 
-			 cout << "Invalid Move Please Redo\n";
+		 else
+			 cout << "Invalid Move Please Redo\r\n";
 	 }
 	 else
-		 cout << "Invalid Move Please Redo\n";
+		 cout << "Invalid Move Please Redo\r\n";
  }
 	  void GameBoard::gbRender() {								//Print Current Game Board  //Please Refactor me
 		 cout << " ";

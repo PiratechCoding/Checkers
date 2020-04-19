@@ -16,7 +16,7 @@ int main()
     cout << "\n\n";
     while (gameFlag == true) {
         game.gbRender();
-        cout << "\nSelect Piece:";
+        cout << "\r\nSelect Piece:";
         cin >> rowSelect >> columnSelect;
         cout << "Move Piece:";
         cin >> rowMove >> columnMove;
@@ -25,8 +25,8 @@ int main()
             gameFlag = false;
     }
     if (teamBlack == 0)
-        cout << "White Wins!";
+        cout << "\nWhite Wins!";
     else if (teamWhite == 0)
-        cout << "Black Wins!";
+        cout << "\nBlack Wins!";
     return 0;
 }
